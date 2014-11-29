@@ -4,6 +4,7 @@
 using namespace std;
 
 vector<vector<Color*>> Tetris::GetGameState() {
+    cout << "Get game state" << endl;
     Color* red =  new Color(1.0, 0.0, 0.0);
     Color* green = new Color(0.0, 1.0, 0.0);
     Color* blue = new Color(0.0, 0.0, 1.0);
@@ -33,12 +34,34 @@ vector<vector<Color*>> Tetris::GetGameState() {
 }
 
 void Tetris::Update() {
-    // Mothafukking logic bitches
+    cout << "Update" << endl;
+
+    // Try to move active piece down
+    // IF YES
+    //  Update active piece
+    // IF NO
+    //  Generate new piece and set it as active piece
 }
 
-void Tetris::KeyPressed(char key) {
-    // Each key could be pressed multiple times between updates.
-    cout << key << endl;
+void Tetris::CommandLeft() {
+    cout << "Command left" << endl;
+
+
+    // Try to move active piece left
+    // IF YES
+    //   Move active piece left
+    // IF NO
+    //   Do not move active piece at all
+}
+
+void Tetris::CommandRight() {
+    cout << "Command right" << endl;
+
+    // Try to move active piece right
+    // IF YES
+    //   Move active piece right
+    // IF NO
+    //   Do not move active piece at all
 }
 
 int Tetris::Width() {

@@ -8,6 +8,7 @@ public:
     float G;
     float B;
 
+    Color() {};
     Color(float R, float G, float B)
             : R(R)
             , G(G)

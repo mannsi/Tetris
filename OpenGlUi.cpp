@@ -44,7 +44,7 @@ void show_ui(Tetris* tetris, int argc, char *argv[])
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(window_width, window_height);
-    glutCreateWindow("MF Pong");
+    glutCreateWindow("MF Tetris");
 
     // Register callback functions
     glutDisplayFunc(draw);
@@ -123,5 +123,12 @@ void update(int value) {
 }
 
 void KeyPressed (unsigned char key, int x, int y) {
-    (*_tetris).KeyPressed(key);
+    if(key == 'a')
+    {
+        (*_tetris).CommandLeft();
+    }
+    else if(key == 'd')
+    {
+        (*_tetris).CommandRight();
+    }
 }
