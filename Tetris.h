@@ -11,8 +11,11 @@ public:
     /// Updates the game by one 'step'
     void Update();
 
-    /// Inputs all keyboard keys
-    void KeyPressed(char key);
+    /// Commands that affect game state
+    void CommandLeft();
+    void CommandRight();
+    void CommandDown();
+    void CommandTurn();
 
     /// Get a color vector with dimensions [Height, Width]. Color value null means there should be no box in that part of the grid
     std::vector<std::vector<Color*>> GetGameState();

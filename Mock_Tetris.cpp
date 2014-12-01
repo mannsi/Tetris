@@ -36,9 +36,20 @@ void Tetris::Update() {
     // Mothafukking logic bitches
 }
 
-void Tetris::KeyPressed(char key) {
-    // Each key could be pressed multiple times between updates.
-    cout << key << endl;
+void Tetris::CommandLeft() {
+    cout << "Left" << endl;
+}
+
+void Tetris::CommandRight() {
+    cout << "Right" << endl;
+}
+
+void Tetris::CommandDown() {
+    cout << "Down" << endl;
+}
+
+void Tetris::CommandTurn() {
+    cout << "Turn" << endl;
 }
 
 int Tetris::Width() {
