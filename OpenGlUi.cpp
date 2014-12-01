@@ -12,8 +12,7 @@ void update(int value);
 void enable2D(int width, int height);
 void drawBox(Color color, BoxShape box);
 BoxShape getDrawableBox(int xGrid, int yGrid);
-void KeyPressed(unsigned char, int, int);
-void KeyUp(unsigned char, int, int);
+void processSpecialKeys(int key, int x, int y);
 void draw();
 
 int number_of_chars = 256;
@@ -44,12 +43,13 @@ void show_ui(Tetris* tetris, int argc, char *argv[])
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(window_width, window_height);
-    glutCreateWindow("MF Tetris");
+    glutCreateWindow("Tetris");
+
 
     // Register callback functions
     glutDisplayFunc(draw);
     glutTimerFunc(update_interval, update, 0);
-    glutKeyboardFunc(KeyPressed);
+    glutSpecialFunc(processSpecialKeys);
 
     // setup scene to 2d mode and set draw color to white
     enable2D(window_width, window_height);
@@ -122,13 +122,22 @@ void update(int value) {
     glutPostRedisplay();
 }
 
-void KeyPressed (unsigned char key, int x, int y) {
-    if(key == 'a')
-    {
-        (*_tetris).CommandLeft();
+
+void processSpecialKeys(int key, int x, int y) {
+    if(key== GLUT_KEY_RIGHT) {
+        _tetris->CommandRight();
     }
-    else if(key == 'd')
+    else if(key== GLUT_KEY_LEFT)
     {
-        (*_tetris).CommandRight();
+        _tetris->CommandRight();
+    }
+    else if(key== GLUT_KEY_DOWN)
+    {
+        _tetris->CommandDown();
+    }
+    else if(key== GLUT_KEY_UP)
+    {
+        _tetris->CommandTurn();
     }
 }
+

@@ -44,24 +44,19 @@ void Tetris::Update() {
 }
 
 void Tetris::CommandLeft() {
-    cout << "Command left" << endl;
-
-
-    // Try to move active piece left
-    // IF YES
-    //   Move active piece left
-    // IF NO
-    //   Do not move active piece at all
+    cout << "Left" << endl;
 }
 
 void Tetris::CommandRight() {
-    cout << "Command right" << endl;
+    cout << "Right" << endl;
+}
 
-    // Try to move active piece right
-    // IF YES
-    //   Move active piece right
-    // IF NO
-    //   Do not move active piece at all
+void Tetris::CommandDown() {
+    cout << "Down" << endl;
+}
+
+void Tetris::CommandTurn() {
+    cout << "Turn" << endl;
 }
 
 int Tetris::Width() {
