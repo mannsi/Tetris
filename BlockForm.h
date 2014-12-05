@@ -9,9 +9,12 @@ using namespace std;
 class BlockForm
 {
 public:
-    vector<Point> forms;
-    Point nextInitPoint;
-    BlockForm(Point initPoint);
+    vector<vector<bool>> form;
+    Point initialPoint;
+    int nextPointXOffset;
+    int nextPointYOffset;
+
+    vector<Point*> _worldVector();
 };
 
 #endif

@@ -3,7 +3,7 @@ project(TetrisTest)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Mock_Tetris.cpp OpenGlUi.cpp BoxShape.h Block.cpp Point.h BlockForm.h LongBlock.cpp)
+set(SOURCE_FILES main.cpp Mock_Tetris.cpp OpenGlUi.cpp BoxShape.h Block.cpp Point.h BlockForm.cpp LongBlock.cpp)
 add_executable(TetrisTest ${SOURCE_FILES})
 
 find_package(OpenGL REQUIRED)

@@ -23,3 +23,24 @@ void Block::MoveLeft() {
         currentPoint->X -= 1;
     }
 }
+
+void Block::Turn(){
+    BlockForm* currentForm = _forms[_currentFormIndex];
+
+    _currentFormIndex++;
+    if (_currentFormIndex == _forms.size())
+    {
+        _currentFormIndex = 0;
+    }
+
+    BlockForm* nextForm = _forms[_currentFormIndex];
+
+    Point nextInitialPoint = currentForm->initialPoint;
+    nextInitialPoint.X += currentForm->nextPointXOffset;
+    nextInitialPoint.Y += currentForm->nextPointYOffset;
+    nextForm->initialPoint = nextInitialPoint;
+}
+
+vector<Point *> Block::WorldVector() {
+    return _forms[_currentFormIndex]->_worldVector();
+}

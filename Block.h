@@ -9,19 +9,20 @@
 class Block
 {
 protected:
-    vector<Point*> _worldVector;
-    vector<BlockForm*> _forms;
+    vector<Point*> _worldVector; // The world point of the block at each time
+    vector<BlockForm*> _forms; // All the different forms of the block.
+    int _currentFormIndex;
 
 public:
-    int _initialHeight;
-    int _initialWidth;
+    Point _initialPoint;
     Color _color;
 
+    vector<Point*> WorldVector();
     void MoveLeft();
     void MoveRight();
     void MoveDown();
-    virtual void TurnLeft() = 0;
-    virtual void TurnRight() = 0;
+    void Turn();
+    Block(Point initialPoint, Color color) : _initialPoint(initialPoint), _color(color) { }
 
 };
 
