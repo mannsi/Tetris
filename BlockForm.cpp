@@ -9,8 +9,8 @@ vector<Point>  BlockForm::_worldVector() {
         for (int j = 0; j < lineVector.size(); ++j) {
             if (lineVector[j])
             {
-                Point worldPoint = Point(initialPoint);
-                worldPoint.X -= j;
+                Point worldPoint = Point(referencePoint);
+                worldPoint.X += j;
                 worldPoint.Y -= i;
                 pointsToReturn.push_back(worldPoint);
             }

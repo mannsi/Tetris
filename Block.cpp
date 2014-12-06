@@ -1,27 +1,18 @@
 #include "Block.h"
 
 void Block::MoveDown() {
-    // Move all points in _worldVector down (-1 on all Y values)
-    for (int i = 0; i < _worldVector.size(); ++i) {
-        Point& currentPoint = _worldVector[i]; // Use Point reference
-        currentPoint.Y -= 1;
-    }
+    // Move the current forms reference point down by one
+    _forms[_currentFormIndex].referencePoint.Y -= 1;
 }
 
 void Block::MoveRight() {
-    // Move all points in _worldVector right (+1 on all X values)
-    for (int i = 0; i < _worldVector.size(); ++i) {
-        Point& currentPoint = _worldVector[i]; // Use Point reference
-        currentPoint.X += 1;
-    }
+    // Move the current forms reference point to the right by one
+    _forms[_currentFormIndex].referencePoint.X += 1;
 }
 
 void Block::MoveLeft() {
-    // Move all points in _worldVector left (-1 on all X values)
-    for (int i = 0; i < _worldVector.size(); ++i) {
-        Point& currentPoint = _worldVector[i]; // Use Point reference
-        currentPoint.X -= 1;
-    }
+    // Move the current forms reference point to the left by one
+    _forms[_currentFormIndex].referencePoint.X -= 1;
 }
 
 void Block::Turn(){
@@ -35,10 +26,10 @@ void Block::Turn(){
 
     BlockForm& nextForm = _forms[_currentFormIndex];
 
-    Point nextInitialPoint = currentForm.initialPoint;
+    Point nextInitialPoint = currentForm.referencePoint;
     nextInitialPoint.X += currentForm.nextPointXOffset;
     nextInitialPoint.Y += currentForm.nextPointYOffset;
-    nextForm.initialPoint = nextInitialPoint;
+    nextForm.referencePoint = Point(nextInitialPoint);
 }
 
 vector<Point> Block::WorldVector() {

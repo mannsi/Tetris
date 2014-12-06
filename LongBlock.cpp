@@ -6,7 +6,7 @@ using namespace std;
 LongBlock::LongBlock(Point initial_top_left_world_point): Block(initial_top_left_world_point, Color(1,0,0)) {
 
     BlockForm form1 = BlockForm();
-    form1.initialPoint = initial_top_left_world_point;
+    form1.referencePoint = initial_top_left_world_point;
     form1.nextPointXOffset = -1;
     form1.nextPointYOffset = -1;
     form1.form.push_back({true});

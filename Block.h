@@ -9,7 +9,6 @@
 class Block
 {
 protected:
-    vector<Point> _worldVector; // The world point of the block at each time
     vector<BlockForm> _forms; // All the different forms of the block.
     int _currentFormIndex;
     Block(Point initialPoint, Color color) : _initialPoint(initialPoint), _color(color)

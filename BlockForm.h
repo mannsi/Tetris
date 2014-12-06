@@ -10,7 +10,7 @@ class BlockForm
 {
 public:
     vector<vector<bool>> form;
-    Point initialPoint;
+    Point referencePoint;
     int nextPointXOffset;
     int nextPointYOffset;
 
