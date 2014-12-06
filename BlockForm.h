@@ -14,7 +14,7 @@ public:
     int nextPointXOffset;
     int nextPointYOffset;
 
-    vector<Point*> _worldVector();
+    vector<Point> _worldVector();
 };
 
 #endif

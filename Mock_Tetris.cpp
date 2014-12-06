@@ -5,7 +5,7 @@ using namespace std;
 
 vector<vector<Color*>> Tetris::GetGameState() {
     cout << "Get game state" << endl;
-    Color* red =  new Color(1.0, 0.0, 0.0);
+    Color* red = new Color(1.0, 0.0, 0.0);
     Color* green = new Color(0.0, 1.0, 0.0);
     Color* blue = new Color(0.0, 0.0, 1.0);
 
