@@ -3,6 +3,10 @@
 
 using namespace std;
 
+Tetris::Tetris(){
+    cout << "Constructor" << endl;
+}
+
 vector<vector<Color*>> Tetris::GetGameState() {
     Color* red =  new Color(1.0, 0.0, 0.0);
     Color* green = new Color(0.0, 1.0, 0.0);
