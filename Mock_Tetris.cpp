@@ -33,7 +33,7 @@ vector<vector<Color*>> Tetris::GetGameState() {
 }
 
 void Tetris::Update() {
-    // Mothafukking logic bitches
+    cout << "Update" << endl;
 }
 
 void Tetris::CommandLeft() {

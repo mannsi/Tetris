@@ -7,6 +7,7 @@
 class Tetris
 {
 public:
+    Tetris();
 
     /// Updates the game by one 'step'
     void Update();
