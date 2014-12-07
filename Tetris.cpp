@@ -5,6 +5,9 @@
 using namespace std;
 
 Block* _activeBlock;
+Tetris::Tetris(){
+    cout << "Constructor" << endl;
+}
 
 vector<vector<Color*>> Tetris::GetGameState() {
     cout << "Get game state" << endl;
