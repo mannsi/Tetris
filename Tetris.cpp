@@ -48,12 +48,15 @@ vector<vector<Color*>> Tetris::GetGameState() {
         gameState.push_back(line);
     }
 
-    for (int k = 0; k < _staticBlocks.size(); ++k) {
-        Block block = _staticBlocks[k];
+    vector<Block> allBlocks = vector<Block>(_staticBlocks);
+    allBlocks.push_back(*_activeBlock);
+
+    for (int k = 0; k < allBlocks.size(); ++k) {
+        Block block = allBlocks[k];
         vector<Point> blockVector = block.WorldVector();
         for (int p = 0; p < blockVector.size(); ++p) {
             Point point = blockVector[p];
-            gameState[point.Y][point.X] = new Color(block._color);
+            gameState[point.Y - 1][point.X - 1] = new Color(block._color);
         }
     }
 
@@ -65,6 +68,7 @@ void Tetris::Update() {
     if (!downMoveSuccessful)
     {
         _staticBlocks.push_back(*_activeBlock);
+        //
         SetRandomActiveBlock();
     }
 }
@@ -140,7 +144,7 @@ void SetRandomActiveBlock()
 bool BlockInLegalState(Block block)
 {
     if (!BlockWithinWorldBounds(block)) return false;
-    if (!BlockIntersectsAnyStaticBlock(block)) return false;
+    if (BlockIntersectsAnyStaticBlock(block)) return false;
 
     return true;
 }
@@ -151,9 +155,9 @@ bool BlockWithinWorldBounds(Block block)
 
     for (int i = 0; i < blockVector.size(); ++i) {
         Point p = blockVector[i];
-        if (p.X > _worldWidth || p.X < 0 || p.Y > _worldHeight || p.Y < 0) return true;
+        if (p.X > _worldWidth || p.X <= 0 || p.Y > _worldHeight || p.Y <= 0) return false;
     }
-    return false;
+    return true;
 }
 
 bool BlockIntersectsAnyStaticBlock(Block block)

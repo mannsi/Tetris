@@ -8,12 +8,13 @@
 
 using namespace std;
 
-void update(int value);
+void periodicUpdate(int value);
 void enable2D(int width, int height);
 void drawBox(Color color, BoxShape box);
 BoxShape getDrawableBox(int xGrid, int yGrid);
 void processSpecialKeys(int key, int x, int y);
 void draw();
+void RefreshGameStateUi();
 
 int number_of_chars = 256;
 Tetris* _tetris;
@@ -48,7 +49,7 @@ void show_ui(Tetris* tetris, int argc, char *argv[])
 
     // Register callback functions
     glutDisplayFunc(draw);
-    glutTimerFunc(update_interval, update, 0);
+    glutTimerFunc(update_interval, periodicUpdate, 0);
     glutSpecialFunc(processSpecialKeys);
 
     // setup scene to 2d mode and set draw color to white
@@ -111,17 +112,21 @@ BoxShape getDrawableBox(int xGrid, int yGrid)
     return drawableBox;
 }
 
-void update(int value) {
-    // Call update() again in 'interval' milliseconds
-    glutTimerFunc(update_interval, update, 0);
+void periodicUpdate(int value) {
+    // Call periodicUpdate() again in 'interval' milliseconds
+    glutTimerFunc(update_interval, periodicUpdate, 0);
 
     _tetris->Update();
+    RefreshGameStateUi();
+}
+
+void RefreshGameStateUi()
+{
     gameState = _tetris->GetGameState();
 
     // Redisplay frame
     glutPostRedisplay();
 }
-
 
 void processSpecialKeys(int key, int x, int y) {
     if(key== GLUT_KEY_RIGHT) {
@@ -129,7 +134,7 @@ void processSpecialKeys(int key, int x, int y) {
     }
     else if(key== GLUT_KEY_LEFT)
     {
-        _tetris->CommandRight();
+        _tetris->CommandLeft();
     }
     else if(key== GLUT_KEY_DOWN)
     {
@@ -139,5 +144,7 @@ void processSpecialKeys(int key, int x, int y) {
     {
         _tetris->CommandTurn();
     }
+
+    RefreshGameStateUi();
 }
 
