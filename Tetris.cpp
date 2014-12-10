@@ -21,55 +21,62 @@ enum BlockType
     last_type
 };
 
-void SetRandomActiveBlock();
+Block*GetRandomActiveBlock();
 bool BlockInLegalState(Block block);
 bool RunCommand(CommandType commandType);
 bool BlockWithinWorldBounds(Block block);
 bool BlockIntersectsAnyStaticBlock(Block block);
+void AddBlockToVector(Block block, vector<vector<Color*>>& vec);
+void InitializeStaticColorVector();
+void RemoveWholeLines();
+vector<Color*> GetEmptyColorLine();
+
 
 Block* _activeBlock;
-vector<Block> _staticBlocks;
+vector<vector<Color*>> _staticColorVector;
 int _worldHeight = 20;
 int _worldWidth = 10;
+bool _gameFinished = false;
 
 Tetris::Tetris(){
-    SetRandomActiveBlock();
+    InitializeStaticColorVector();
+    _activeBlock = GetRandomActiveBlock();
+}
+
+void InitializeStaticColorVector()
+{
+    // Initialize vector with nulls
+    for (int i = 0; i < _worldHeight; ++i) {
+        vector<Color*> line = GetEmptyColorLine();
+        _staticColorVector.push_back(line);
+    }
+}
+
+vector<Color*> GetEmptyColorLine()
+{
+    vector<Color*> line;
+    for (int j = 0; j < _worldWidth; ++j) {
+        line.push_back(NULL);
+    }
+    return line;
 }
 
 vector<vector<Color*>> Tetris::GetGameState() {
-    vector<vector<Color*>> gameState = vector<vector<Color*>>();
-
-    // Initialize vector with nulls
-    for (int i = 0; i < _worldHeight; ++i) {
-        vector<Color*> line;
-        for (int j = 0; j < _worldHeight; ++j) {
-            line.push_back(NULL);
-        }
-        gameState.push_back(line);
-    }
-
-    vector<Block> allBlocks = vector<Block>(_staticBlocks);
-    allBlocks.push_back(*_activeBlock);
-
-    for (int k = 0; k < allBlocks.size(); ++k) {
-        Block block = allBlocks[k];
-        vector<Point> blockVector = block.WorldVector();
-        for (int p = 0; p < blockVector.size(); ++p) {
-            Point point = blockVector[p];
-            gameState[point.Y - 1][point.X - 1] = new Color(block._color);
-        }
-    }
-
+    vector<vector<Color*>> gameState = vector<vector<Color*>>(_staticColorVector);
+    AddBlockToVector(*_activeBlock, gameState);
     return gameState;
 }
 
 void Tetris::Update() {
+    if (_gameFinished) return;
+
     bool downMoveSuccessful = RunCommand(DOWN);
     if (!downMoveSuccessful)
     {
-        _staticBlocks.push_back(*_activeBlock);
-        //
-        SetRandomActiveBlock();
+        AddBlockToVector(*_activeBlock, _staticColorVector);
+        RemoveWholeLines();
+        _activeBlock = GetRandomActiveBlock();
+        _gameFinished = !BlockInLegalState(*_activeBlock);
     }
 }
 
@@ -125,20 +132,22 @@ bool RunCommand(CommandType commandType)
     return false;
 }
 
-void SetRandomActiveBlock()
+Block* GetRandomActiveBlock()
 {
-
-    Point initialBlockPoint = {.X = _worldWidth/2 - 1, .Y = _worldHeight};
+    Point initialBlockPoint = {.X = _worldWidth/2 - 1, .Y = _worldHeight - 1};
     BlockType randomType = static_cast<BlockType>(rand() % last_type);
+    Block* block;
     switch (randomType)
     {
         case LONG:
-            _activeBlock = new LongBlock(initialBlockPoint);
+            block = new LongBlock(initialBlockPoint);
             break;
         case BOX:
-            _activeBlock = new BoxBlock(initialBlockPoint);
+            block = new BoxBlock(initialBlockPoint);
             break;
     }
+
+    return block;
 }
 
 bool BlockInLegalState(Block block)
@@ -155,7 +164,7 @@ bool BlockWithinWorldBounds(Block block)
 
     for (int i = 0; i < blockVector.size(); ++i) {
         Point p = blockVector[i];
-        if (p.X > _worldWidth || p.X <= 0 || p.Y > _worldHeight || p.Y <= 0) return false;
+        if (p.X >= _worldWidth || p.X < 0 || p.Y >= _worldHeight || p.Y < 0) return false;
     }
     return true;
 }
@@ -163,21 +172,42 @@ bool BlockWithinWorldBounds(Block block)
 bool BlockIntersectsAnyStaticBlock(Block block)
 {
     vector<Point> blockVector = block.WorldVector();
-    for (int i = 0; i < blockVector.size(); ++i) {
-        Point blockPoint = blockVector[i];
-        for (int j = 0; j < _staticBlocks.size(); ++j) {
-            vector<Point> comparisonBlockVector = _staticBlocks[j].WorldVector();
-            for (int k = 0; k < comparisonBlockVector.size(); ++k) {
-                Point comparisonPoint = comparisonBlockVector[k];
-                if (blockPoint == comparisonPoint) return true;
-            }
-        }
+    for (int p = 0; p < blockVector.size(); ++p) {
+        Point point = blockVector[p];
+        if(_staticColorVector[point.Y][point.X] != NULL) return true;
     }
-    
+
     return false;
 }
 
+void AddBlockToVector(Block block, vector<vector<Color*>>& vec)
+{
+    vector<Point> blockVector = block.WorldVector();
+    for (int p = 0; p < blockVector.size(); ++p) {
+        Point point = blockVector[p];
+        Color* color = new Color(block._color);
+        vec[point.Y][point.X] = color;
+    }
+}
 
-
-
+void RemoveWholeLines()
+{
+    for (int lineNumber = 0; lineNumber < _staticColorVector.size(); ++lineNumber) {
+        vector<Color*> line = _staticColorVector[lineNumber];
+        bool lineShouldBeRemoved = true;
+        for (int itemNumber = 0; itemNumber < line.size(); ++itemNumber) {
+            if (line[itemNumber] == NULL)
+            {
+                lineShouldBeRemoved = false;
+            }
+        }
+        if (lineShouldBeRemoved)
+        {
+            _staticColorVector.erase(_staticColorVector.begin()+lineNumber);
+            vector<Color*> line = GetEmptyColorLine();
+            _staticColorVector.push_back(line);
+            lineNumber--;
+        }
+    }
+}
 
