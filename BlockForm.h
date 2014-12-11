@@ -11,8 +11,6 @@ class BlockForm
 public:
     vector<vector<bool>> form;
     Point referencePoint;
-    int nextPointXOffset;
-    int nextPointYOffset;
 
     vector<Point> _worldVector();
 };

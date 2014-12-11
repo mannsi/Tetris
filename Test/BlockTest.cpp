@@ -1,11 +1,12 @@
 #include "gtest/gtest.h"
 #include "../LongBlock.h"
 #include "../BoxBlock.h"
+#include "TBlock.h"
 
 bool VectorContainsPoint(vector<Point>, Point);
 void Assert_VectorsContainSamePoints(vector<Point>, vector<Point>);
 
-TEST(LongBLockTest, New)
+TEST(LongBlockTest, New)
 {
     int x = 5;
     int y = 5;
@@ -15,16 +16,16 @@ TEST(LongBLockTest, New)
 
     vector<Point> expectedBlockVector =
     {
-        {x, y},
-        {x, y - 1},
-        {x, y - 2},
-        {x, y - 3}
+        {x + 2, y},
+        {x + 2, y - 1},
+        {x + 2, y - 2},
+        {x + 2, y - 3}
     };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(LongBLockTest, MoveDown)
+TEST(LongBlockTest, MoveDown)
 {
     int x = 5;
     int y = 5;
@@ -34,17 +35,17 @@ TEST(LongBLockTest, MoveDown)
     vector<Point> blockVector = vector<Point>(lb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x, y - 1},
-        {x, y - 2},
-        {x, y - 3},
-        {x, y - 4}
-    };
+            {
+                    {x + 2, y - 1},
+                    {x + 2, y - 2},
+                    {x + 2, y - 3},
+                    {x + 2, y - 4}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(LongBLockTest, MoveRight)
+TEST(LongBlockTest, MoveRight)
 {
     int x = 5;
     int y = 5;
@@ -54,17 +55,17 @@ TEST(LongBLockTest, MoveRight)
     vector<Point> blockVector = vector<Point>(lb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x + 1, y},
-        {x + 1, y},
-        {x + 1, y},
-        {x + 1, y}
-    };
+            {
+                    {x + 3, y},
+                    {x + 3, y - 1},
+                    {x + 3, y - 2},
+                    {x + 3, y - 3}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(LongBLockTest, MoveLeft)
+TEST(LongBlockTest, MoveLeft)
 {
     int x = 5;
     int y = 5;
@@ -74,17 +75,17 @@ TEST(LongBLockTest, MoveLeft)
     vector<Point> blockVector = vector<Point>(lb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x - 1, y},
-        {x - 1, y},
-        {x - 1, y},
-        {x - 1, y}
-    };
+            {
+                    {x + 1, y},
+                    {x + 1, y - 1},
+                    {x + 1, y - 2},
+                    {x + 1, y - 3}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(LongBLockTest, Turn)
+TEST(LongBlockTest, Turn)
 {
     int x = 5;
     int y = 5;
@@ -94,18 +95,18 @@ TEST(LongBLockTest, Turn)
     vector<Point> blockVector = vector<Point>(lb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x - 1, y - 1},
-        {x, y - 1},
-        {x + 1, y - 1},
-        {x + 2, y - 1}
-    };
+            {
+                    {x, y - 1},
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 3, y - 1}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
 
-TEST(BoxBLockTest, New)
+TEST(BoxBlockTest, New)
 {
     int x = 5;
     int y = 5;
@@ -115,16 +116,16 @@ TEST(BoxBLockTest, New)
 
     vector<Point> expectedBlockVector =
     {
-        {x, y},
-        {x + 1, y},
-        {x, y - 1},
-        {x + 1, y - 1}
+        {x + 1, y - 1},
+        {x + 2, y - 1},
+        {x + 1, y - 2},
+        {x + 2, y - 2}
     };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(BoxBLockTest, MoveDown)
+TEST(BoxBlockTest, MoveDown)
 {
     int x = 5;
     int y = 5;
@@ -134,17 +135,17 @@ TEST(BoxBLockTest, MoveDown)
     vector<Point> blockVector = vector<Point>(bb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x, y - 1},
-        {x + 1, y - 1},
-        {x, y - 2},
-        {x + 1, y - 2}
-    };
+            {
+                    {x + 1, y - 2},
+                    {x + 2, y - 2},
+                    {x + 1, y - 3},
+                    {x + 2, y - 3}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(BoxBLockTest, MoveRight)
+TEST(BoxBlockTest, MoveRight)
 {
     int x = 5;
     int y = 5;
@@ -154,17 +155,17 @@ TEST(BoxBLockTest, MoveRight)
     vector<Point> blockVector = vector<Point>(bb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x + 1, y},
-        {x + 2, y},
-        {x + 1, y - 1},
-        {x + 2, y - 1}
-    };
+            {
+                    {x + 2, y - 1},
+                    {x + 3, y - 1},
+                    {x + 2, y - 2},
+                    {x + 3, y - 2}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(BoxBLockTest, MoveLeft)
+TEST(BoxBlockTest, MoveLeft)
 {
     int x = 5;
     int y = 5;
@@ -174,17 +175,17 @@ TEST(BoxBLockTest, MoveLeft)
     vector<Point> blockVector = vector<Point>(bb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x - 1, y},
-        {x, y},
-        {x - 1, y - 1},
-        {x, y - 1}
-    };
+            {
+                    {x, y - 1},
+                    {x + 1, y - 1},
+                    {x, y - 2},
+                    {x + 1, y - 2}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }
 
-TEST(BoxBLockTest, Turn)
+TEST(BoxBlockTest, Turn)
 {
     int x = 5;
     int y = 5;
@@ -194,12 +195,179 @@ TEST(BoxBLockTest, Turn)
     vector<Point> blockVector = vector<Point>(bb.WorldVector());
 
     vector<Point> expectedBlockVector =
-    {
-        {x, y},
-        {x + 1, y},
-        {x, y - 1},
-        {x + 1, y - 1}
-    };
+            {
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 1, y - 2},
+                    {x + 2, y - 2}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+
+TEST(TeeBlockTest, New)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 3, y - 1},
+                    {x + 2, y - 2}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, MoveDown)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.MoveDown();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 1, y - 2},
+                    {x + 2, y - 2},
+                    {x + 3, y - 2},
+                    {x + 2, y - 3}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, MoveRight)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.MoveRight();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 2, y - 1},
+                    {x + 3, y - 1},
+                    {x + 4, y - 1},
+                    {x + 3, y - 2}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, MoveLeft)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.MoveLeft();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x, y - 1},
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 1, y - 2}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, Turn)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.Turn();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 2, y},
+                    {x + 2, y - 1},
+                    {x + 2, y - 2},
+                    {x + 3, y - 1}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+
+TEST(TeeBlockTest, TurnTwice)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.Turn();
+    tb.Turn();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 2, y},
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 3, y - 1}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, TurnThrice)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.Turn();
+    tb.Turn();
+    tb.Turn();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 1, y - 1},
+                    {x + 2, y},
+                    {x + 2, y - 1},
+                    {x + 2, y - 2}
+            };
+
+    Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
+}
+
+TEST(TeeBlockTest, TurnFour)
+{
+    int x = 5;
+    int y = 5;
+    Point initialPoint = {x, y};
+    TeeBlock tb(initialPoint);
+    tb.Turn();
+    tb.Turn();
+    tb.Turn();
+    tb.Turn();
+    vector<Point> blockVector = vector<Point>(tb.WorldVector());
+
+    vector<Point> expectedBlockVector =
+            {
+                    {x + 1, y - 1},
+                    {x + 2, y - 1},
+                    {x + 3, y - 1},
+                    {x + 2, y - 2}
+            };
 
     Assert_VectorsContainSamePoints(blockVector, expectedBlockVector);
 }

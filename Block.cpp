@@ -26,10 +26,7 @@ void Block::Turn(){
 
     BlockForm& nextForm = _forms[_currentFormIndex];
 
-    Point nextInitialPoint = currentForm.referencePoint;
-    nextInitialPoint.X += currentForm.nextPointXOffset;
-    nextInitialPoint.Y += currentForm.nextPointYOffset;
-    nextForm.referencePoint = Point(nextInitialPoint);
+    nextForm.referencePoint = Point(currentForm.referencePoint);
 }
 
 vector<Point> Block::WorldVector() {

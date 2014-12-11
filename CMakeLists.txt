@@ -3,8 +3,9 @@ project(Tetris)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp OpenGlUi.cpp BoxShape.h Block.cpp Point.h BlockForm.cpp LongBlock.cpp BoxBlock.cpp Tetris.cpp)
-add_executable(Tetris ${SOURCE_FILES})
+set(SOURCE_FILES main.cpp OpenGlUi.cpp BoxShape.h Block.cpp Point.h BlockForm.cpp  Tetris.cpp)
+set(BLOCK_FILES LongBlock.cpp BoxBlock.cpp TBlock.cpp SBlock.cpp ZBlock.cpp LBlock.cpp JBlock.cpp)
+add_executable(Tetris ${SOURCE_FILES} ${BLOCK_FILES})
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)

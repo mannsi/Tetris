@@ -3,6 +3,11 @@
 #include "Block.h"
 #include "LongBlock.h"
 #include "BoxBlock.h"
+#include "TBlock.h"
+#include "SBlock.h"
+#include "ZBlock.h"
+#include "LBlock.h"
+#include "JBlock.h"
 
 using namespace std;
 
@@ -18,6 +23,11 @@ enum BlockType
 {
     LONG,
     BOX,
+    T,
+    S,
+    Z,
+    L,
+    J,
     last_type
 };
 
@@ -46,7 +56,7 @@ Tetris::Tetris(){
 void InitializeStaticColorVector()
 {
     // Initialize vector with nulls
-    for (int i = 0; i < _worldHeight; ++i) {
+    for (int i = 0; i < _worldHeight + 2; ++i) {
         vector<Color*> line = GetEmptyColorLine();
         _staticColorVector.push_back(line);
     }
@@ -134,7 +144,7 @@ bool RunCommand(CommandType commandType)
 
 Block* GetRandomActiveBlock()
 {
-    Point initialBlockPoint = {.X = _worldWidth/2 - 1, .Y = _worldHeight - 1};
+    Point initialBlockPoint = {.X = _worldWidth/2 - 2, .Y = _worldHeight};
     BlockType randomType = static_cast<BlockType>(rand() % last_type);
     Block* block;
     switch (randomType)
@@ -144,6 +154,21 @@ Block* GetRandomActiveBlock()
             break;
         case BOX:
             block = new BoxBlock(initialBlockPoint);
+            break;
+        case T:
+            block = new TBlock(initialBlockPoint);
+            break;
+        case S:
+            block = new SBlock(initialBlockPoint);
+            break;
+        case Z:
+            block = new ZBlock(initialBlockPoint);
+            break;
+        case L:
+            block = new LBlock(initialBlockPoint);
+            break;
+        case J:
+            block = new JBlock(initialBlockPoint);
             break;
     }
 
@@ -164,7 +189,7 @@ bool BlockWithinWorldBounds(Block block)
 
     for (int i = 0; i < blockVector.size(); ++i) {
         Point p = blockVector[i];
-        if (p.X >= _worldWidth || p.X < 0 || p.Y >= _worldHeight || p.Y < 0) return false;
+        if (p.X >= _worldWidth || p.X < 0 || p.Y < 0) return false;
     }
     return true;
 }
