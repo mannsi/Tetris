@@ -1,7 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "Color.h"
+#include <Color.h>
 #include "BlockForm.h"
 #include "Point.h"
 #include <vector>
